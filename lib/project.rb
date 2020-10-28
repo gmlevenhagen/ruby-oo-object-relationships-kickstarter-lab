@@ -5,9 +5,14 @@ class Project
       @title = title
       @backers = []
     end
-  
-    def add_backer(backer)
-      @backers << backer
-      backer.backed_projects << self
+
+    def backers	
+      proj_backs = ProjectBacker.all.select {|proj_back| proj_back.project == self}		
+      proj_backs.map {|proj_back| proj_back.backer}		
     end
+  
+    def add_backer(backer)		
+      ProjectBacker.new(self, backer)		
+    end
+ 
   end
